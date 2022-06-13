@@ -1,12 +1,62 @@
-import "./style.css";
+// import "./style.css";
 
-function component() {
-  const element = document.createElement("div");
+const fullShip = document.querySelectorAll(".ships-full");
+const boardCell = document.querySelectorAll(".board-1");
+const rotateButton = document.querySelector(".rotate-button");
+const allShips = document.querySelectorAll(".all-ships");
+const shipCluster = document.querySelectorAll(".ship-cluster");
 
-  // Lodash, currently included via a script, is required for this line to work
-  element.innerHTML = "Hello webpack";
+fullShip.forEach((ship) => {
+  ship.addEventListener("dragstart", dragStart);
+  ship.addEventListener("dragend", dragEnd);
+});
 
-  return element;
+boardCell.forEach((cell) => {
+  cell.addEventListener("dragover", dragOver);
+  cell.addEventListener("dragenter", dragEnter);
+  cell.addEventListener("dragleave", dragLeave);
+  cell.addEventListener("drop", dragDrop);
+});
+
+rotateButton.addEventListener("click", rotateShips);
+
+function dragStart() {
+  this.className += " hold";
+  setTimeout(() => this.classList.add("invisible"), 10);
 }
 
-document.body.appendChild(component());
+function dragEnd() {
+  this.classList.remove("hold");
+  this.classList.remove("invisible");
+}
+
+function dragOver(e) {
+  e.preventDefault();
+}
+
+function dragEnter(e) {
+  e.preventDefault();
+  this.classList.add("hovered");
+}
+
+function dragLeave() {
+  this.classList.remove("hovered");
+}
+
+function dragDrop() {
+  this.classList.remove("hovered");
+  this.append();
+}
+
+function rotateShips() {
+  allShips.forEach((ship) => ship.classList.toggle("row"));
+  shipCluster.forEach((cluster) => cluster.classList.toggle("column"));
+  fullShip.forEach((ship) => {
+    ship.classList.toggle("column");
+    if (ship.dataset.shipOrientation === "vertical") {
+      ship.dataset.shipOrientation = "horizontal";
+    } else {
+      ship.dataset.shipOrientation = "vertical";
+    }
+  });
+}

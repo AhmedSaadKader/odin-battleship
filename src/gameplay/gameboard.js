@@ -27,6 +27,7 @@ export default function GameBoard() {
   ];
 
   const board = {};
+  const attackedSpots = [];
 
   function createBoard() {
     HORIZONTAL_COORDINATES.forEach((letter) => {
@@ -146,6 +147,9 @@ export default function GameBoard() {
   }
 
   function receiveAttack(coordinate) {
+    if (attackedSpots.includes(coordinate) === true) {
+      return false;
+    }
     if (board[coordinate] !== "empty" && board[coordinate] !== "missed shot") {
       const ship = board[coordinate];
       ship.hit();
