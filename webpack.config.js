@@ -14,6 +14,9 @@ module.exports = {
     mainComponent: "./src/initial-components/main-components.js",
     updateGameboardInitial:
       "./src/initial-components/updateGameboardInitial.js",
+    createBoards: "./src/components/create-boards.js",
+    gameplayComponents: "./src/components/gamePlay-components.js",
+    updateBoards: "./src/components/update-boards.js",
   },
   devtool: "inline-source-map",
   devServer: {
