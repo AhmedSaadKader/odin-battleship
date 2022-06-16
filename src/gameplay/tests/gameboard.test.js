@@ -141,23 +141,15 @@ it("reject placing ship at coordinates if coordinates contains another ship", ()
   gameboard.placeShipOnBoard(ship, "B3", "vertical");
   expect(gameboard.board["B4"]).toBe(ship);
   expect(gameboard.board["B5"]).toBe(ship);
-  expect(gameboard.placeShipOnBoard(ship2, "B4", "vertical")).toBe(
-    "These spots are not available"
-  );
-  expect(gameboard.placeShipOnBoard(ship2, "B4", "horizontal")).toBe(
-    "These spots are not available"
-  );
+  expect(gameboard.placeShipOnBoard(ship2, "B4", "vertical")).toBeFalsy();
+  expect(gameboard.placeShipOnBoard(ship2, "B4", "horizontal")).toBeFalsy();
 });
 
 it("reject placing ship at coordinates if coordinates do not exist", () => {
   const gameboard = GameBoard();
   const ship = gameboard.ships.ship_0_length_3;
-  expect(gameboard.placeShipOnBoard(ship, "P4", "horizontal")).toBe(
-    "These spots are not available"
-  );
-  expect(gameboard.placeShipOnBoard(ship, "P4", "vertical")).toBe(
-    "These spots are not available"
-  );
+  expect(gameboard.placeShipOnBoard(ship, "P4", "horizontal")).toBeFalsy();
+  expect(gameboard.placeShipOnBoard(ship, "P4", "vertical")).toBeFalsy();
 });
 
 it("places all ships randomly on board correctly", () => {

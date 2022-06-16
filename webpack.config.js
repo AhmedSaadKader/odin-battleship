@@ -7,6 +7,13 @@ module.exports = {
     index: "./src/index.js",
     ship: "./src/gameplay/ship.js",
     gameboard: "./src/gameplay/gameboard.js",
+    player: "./src/gameplay/player.js",
+    mainGame: "./src/gameplay/main-game.js",
+    headerComponent: "./src/initial-components/header.js",
+    gameboardInitial: "./src/initial-components/gameboard-initial.js",
+    mainComponent: "./src/initial-components/main-components.js",
+    updateGameboardInitial:
+      "./src/initial-components/updateGameboardInitial.js",
   },
   devtool: "inline-source-map",
   devServer: {

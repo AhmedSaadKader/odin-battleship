@@ -27,7 +27,6 @@ export default function GameBoard() {
   ];
 
   const board = {};
-  const attackedSpots = [];
 
   function createBoard() {
     HORIZONTAL_COORDINATES.forEach((letter) => {
@@ -42,6 +41,8 @@ export default function GameBoard() {
   createBoard();
 
   const ships = {};
+  let shipsPlacedOnBoardCount = 0;
+
   function createNewShip(length) {
     const ship = new Ship(length);
     return ship;
@@ -106,6 +107,9 @@ export default function GameBoard() {
   }
 
   function placeShipOnBoard(ship, startingCoordinates, direction) {
+    if (shipsPlacedOnBoardCount === 10) {
+      return false;
+    }
     let nextCoordinates = chooseNextCoordinates(
       ship,
       startingCoordinates,
@@ -114,10 +118,17 @@ export default function GameBoard() {
     if (checkIfCoordinatesListIsAvailable(nextCoordinates) === true) {
       nextCoordinates.forEach((coordinate) => {
         board[coordinate] = ship;
+        if (ship.shipCoordinates[0] === "empty") {
+          ship.shipCoordinates[0] = coordinate;
+        } else {
+          ship.shipCoordinates.push(coordinate);
+        }
       });
+      shipsPlacedOnBoardCount += 1;
+
       return board;
     } else if (checkIfCoordinatesListIsAvailable(nextCoordinates) === false) {
-      return "These spots are not available";
+      return false;
     }
   }
 
@@ -132,24 +143,23 @@ export default function GameBoard() {
   }
 
   function placeShipsRandomlyOnBoard() {
+    if (shipsPlacedOnBoardCount === 10) {
+      return false;
+    }
     const shipsList = Object.values(ships);
     for (let i = 0; i < shipsList.length; i++) {
       const ship = shipsList[i];
       let random = chooseRandomCoordinatesAndDirection();
-      while (
-        placeShipOnBoard(ship, random[0], random[1]) ===
-        "These spots are not available"
-      ) {
+      let nextCoordinates = chooseNextCoordinates(ship, random[0], random[1]);
+      while (checkIfCoordinatesListIsAvailable(nextCoordinates) === false) {
         random = chooseRandomCoordinatesAndDirection();
+        nextCoordinates = chooseNextCoordinates(ship, random[0], random[1]);
       }
       placeShipOnBoard(ship, random[0], random[1]);
     }
   }
 
   function receiveAttack(coordinate) {
-    if (attackedSpots.includes(coordinate) === true) {
-      return false;
-    }
     if (board[coordinate] !== "empty" && board[coordinate] !== "missed shot") {
       const ship = board[coordinate];
       ship.hit();

@@ -1,8 +1,8 @@
-import Player from "./gameplay/player";
+import Player from "./player";
 
-export default function mainGame(givenName) {
-  const humanPlayer = Player(givenName, "Human");
-  const AIPlayer = Player("Angry Pirate", "AI");
+export default function mainGame() {
+  const humanPlayer = Player("Human");
+  const AIPlayer = Player("AI");
   let turn = "Human";
 
   function endTurn() {

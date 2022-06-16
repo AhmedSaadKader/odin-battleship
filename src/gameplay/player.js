@@ -1,7 +1,6 @@
 import GameBoard from "./gameboard";
 
-export default function Player(nameParam, typeParam) {
-  const name = nameParam;
+export default function Player(typeParam) {
   const type = typeParam;
   const gameboard = GameBoard();
 
@@ -26,5 +25,5 @@ export default function Player(nameParam, typeParam) {
     attack(randomCoordinate, opponentBoard);
   };
 
-  return { name, type, gameboard, attack, makeRandomMove };
+  return { type, gameboard, attack, makeRandomMove, attackedSpots };
 }

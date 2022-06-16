@@ -1,6 +1,7 @@
 export default function Ship(length) {
   const shipLength = length;
   const shipPositions = {};
+  let shipCoordinates = ["empty"];
 
   function createShipPositions(shipLength) {
     for (let i = 0; i < shipLength; i++) {
@@ -31,6 +32,7 @@ export default function Ship(length) {
   return {
     shipLength,
     shipPositions,
+    shipCoordinates,
     hit,
     isSunk,
   };

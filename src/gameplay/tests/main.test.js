@@ -1,19 +1,13 @@
-import mainGame from "../../main-game.js";
-
-it("creates new human player by given name", () => {
-  const game = mainGame("Anivia");
-  const player1 = game.humanPlayer;
-  expect(player1.name).toBe("Anivia");
-});
+import mainGame from "../main-game.js";
 
 it("automatically creates AI player", () => {
   const game = mainGame();
   const AIPlayer = game.AIPlayer;
-  expect(AIPlayer.name).toBe("Angry Pirate");
+  expect(AIPlayer.type).toBe("AI");
 });
 
 it("makes first turn to move to be human move", () => {
-  const game = mainGame("Anivia");
+  const game = mainGame();
   const player1 = game.humanPlayer;
   const AIPlayer = game.AIPlayer;
   game.play("B4");
@@ -21,7 +15,7 @@ it("makes first turn to move to be human move", () => {
 });
 
 it("after human move the next turn is AI move", () => {
-  const game = mainGame("Anivia");
+  const game = mainGame();
   const player1 = game.humanPlayer;
   const AIPlayer = game.AIPlayer;
   game.play("C9");
@@ -32,7 +26,7 @@ it("after human move the next turn is AI move", () => {
 });
 
 it("checks if one someone lost or not by checking for sunk ships and returning false", () => {
-  const game = mainGame("Anivia");
+  const game = mainGame();
   const player1 = game.humanPlayer;
   const AIPlayer = game.AIPlayer;
   player1.gameboard.placeShipsRandomlyOnBoard();
@@ -43,7 +37,7 @@ it("checks if one someone lost or not by checking for sunk ships and returning f
 });
 
 it("checks if one player lost by checking for sunk ships and returning game endings", () => {
-  const game = mainGame("Anivia");
+  const game = mainGame();
   const player1 = game.humanPlayer;
   const AIPlayer = game.AIPlayer;
   player1.gameboard.placeShipsRandomlyOnBoard();
